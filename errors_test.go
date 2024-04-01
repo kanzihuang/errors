@@ -8,6 +8,10 @@ import (
 	"testing"
 )
 
+func init() {
+	addStack.Store(testing.Testing())
+}
+
 func TestNew(t *testing.T) {
 	tests := []struct {
 		err  string
@@ -83,7 +87,7 @@ func TestCause(t *testing.T) {
 		want: io.EOF,
 	}, {
 		err:  x, // return from errors.New
-		want: x,
+		want: Cause(x),
 	}, {
 		WithMessage(nil, "whoops"),
 		nil,
